@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QMap>
 #include <QVector>
 #include "aiproblem.h"
 
@@ -19,16 +20,16 @@ struct AiNode
 	AiNode* next;			// Next step in optimum solution path. Use this to track the path from start to goal.
 	QVector<AiState> successors;	// Stores currently closed nodes
 
-	bool operator== (AiNode* node) {
-		return this->state == node->state;
+	bool operator== (const AiNode &node) {
+		return this->state == node.state;
 	}
 
-	bool operator== (AiState& state) {
+	bool operator== (const AiState &state) {
 		return this->state == state;
 	}
 
-	bool operator< (AiNode* state) {
-		return this->totalCost < state->totalCost;
+	bool operator< (const AiNode &state) {
+		return this->totalCost < state.totalCost;
 	}
 };
 
@@ -37,23 +38,22 @@ class AiAlgorithm : public QObject
 	Q_OBJECT
 
 public:
-	AiAlgorithm(const AiProblem *problem, QObject *parent = 0) 
-		: QObject(parent), mStart(problem->mStart), mGoal(problem->mGoal) { }
+	AiAlgorithm(AiProblem *problem, QObject *parent = 0) 
+		: QObject(parent), mProblem(problem) { }
 	virtual ~AiAlgorithm() { };
 
 public slots:
 	virtual AiNode run() = 0;
 
 protected slots:
-	virtual void addNewSuccessors(QVector<AiNode>& successors) = 0;
-	virtual bool isGoal(AiNode& node) { return node == mGoal; };
+	virtual void addNewSuccessors(const AiNode &node, QVector<AiNode> &successors) = 0;
+	virtual bool isGoal(AiNode& node) { return node == mProblem->mGoal; };
 	virtual void openNode(AiNode&) = 0;
 
 protected:
 	QVector<AiNode> mSetOpenNodes;
-	QVector<AiNode> mPriorityQue;
-	AiState mStart;
-	AiState mGoal;
+	QMap<AiNode, int> mPriorityQueue;
+	AiProblem *mProblem;
 };
 
 #endif // AIALGORITHM_H

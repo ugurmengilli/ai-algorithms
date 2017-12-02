@@ -9,11 +9,9 @@ BFSearch::BFSearch(AiProblem *problem, QObject *parent)
 		0,			// cost
 		0,			// total cost
 		0,			// step
-		0,			// index of this node in set of opened nodes
 		problem->getCurrentState(),		// state of the problem
 		nullptr,	// Back-pointer
 		nullptr,	// Next node in solution path
-		QVector<AiState>()	// Closed successor states
 	};
 	// Add the starting node to the priority queue to open when running the algorithm.
 	mPriorityQueue.insert(startNode, startNode.totalCost);

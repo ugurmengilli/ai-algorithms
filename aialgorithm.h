@@ -14,11 +14,9 @@ struct AiNode
 	int cost;				// Cost of this state
 	int totalCost;			// Total cost until this state
 	int step;				// The index of this state in solution path
-	int openedNodeIndex;	// Index of this state in the list of opened nodes if it is opened
 	AiState state;			// State of the board stored in this struct
 	AiNode* previous;		// Back-pointer
 	AiNode* next;			// Next step in optimum solution path. Use this to track the path from start to goal.
-	QVector<AiState> successors;	// Stores currently closed nodes
 
 	bool operator== (const AiNode &node) {
 		return this->state == node.state;

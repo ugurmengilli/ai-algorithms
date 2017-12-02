@@ -46,9 +46,9 @@ public slots:
 	virtual AiNode run() = 0;
 
 protected slots:
-	virtual void addNewSuccessors(const AiNode &node, QVector<AiNode> &successors) = 0;
-	virtual bool isGoal(AiNode& node) { return node == mProblem->mGoal; };
-	virtual void openNode(AiNode&) = 0;
+	virtual bool isFoundGoal(AiNode& node) { return node == mProblem->mGoal; };
+	virtual void open(AiNode&) = 0;
+	virtual int getCostOfGoingTo(AiState&) const = 0;
 
 protected:
 	QVector<AiNode> mSetOpenNodes;

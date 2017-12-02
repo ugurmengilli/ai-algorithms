@@ -25,7 +25,7 @@ public slots:
 	/// <summary> Gets the cost of going to the given state from the current node </summary>
 	/// <param name='nextState'> One of the next possible state of the current node. </param name>
 	/// <return> Cost of going to the state </return>
-	int getCostOfGoingTo(AiState &nextState) const override;
+	int getCostOfGoingTo(const AiState &nextState) const override;
 
 protected:
 	void open(AiNode &node) override;

@@ -37,6 +37,9 @@ AiNode BFSearch::run()
 {
 }
 
-int BFSearch::getCostOfGoingTo(AiState &node) const
+int BFSearch::getCostOfGoingTo(const AiState &node) const
 {
+	if (mSearchType == LeastCost)
+		throw std::exception("NOT IMPLEMENTED!");
+	return mUniformCost;
 }

@@ -46,7 +46,7 @@ public slots:
 protected slots:
 	virtual bool isFoundGoal(AiNode& node) { return node == mProblem->mGoal; };
 	virtual void open(AiNode&) = 0;
-	virtual int getCostOfGoingTo(AiState&) const = 0;
+	virtual int getCostOfGoingTo(const AiState&) const = 0;
 
 protected:
 	QVector<AiNode> mSetOpenNodes;

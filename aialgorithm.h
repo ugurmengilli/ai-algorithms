@@ -45,7 +45,7 @@ public slots:
 	virtual AiNode run() = 0;
 
 protected slots:
-	virtual bool isFoundGoal(AiNode& node) { return node == mProblem->mGoal; };
+	virtual bool foundGoalAt(AiNode& node) { return node == mProblem->mGoal; };
 	virtual void open(AiNode&) = 0;
 	virtual int getCostOfGoingTo(const AiState&) const = 0;
 

@@ -5,6 +5,7 @@
 #include <QList>
 #include <QMap>
 #include <QVector>
+#include <QMap>
 #include "aiproblem.h"
 
 typedef QList<int> AiState;
@@ -49,7 +50,7 @@ protected slots:
 	virtual int getCostOfGoingTo(const AiState&) const = 0;
 
 protected:
-	QVector<AiNode> mSetOpenNodes;
+	QVector<AiNode> mSetOfOpenNodes;
 	QMap<AiNode, int> mPriorityQueue;
 	AiProblem *mProblem;
 };

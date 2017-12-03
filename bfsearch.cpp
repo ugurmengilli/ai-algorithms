@@ -11,7 +11,7 @@ BFSearch::BFSearch(AiProblem *problem, QObject *parent)
 		0,			// step
 		problem->getCurrentState(),		// state of the problem
 		nullptr,	// Back-pointer
-		nullptr,	// Next node in solution path
+		nullptr		// Next node in solution path
 	};
 	// Add the starting node to the priority queue to open when running the algorithm.
 	mPriorityQueue.insert(startNode, startNode.totalCost);
@@ -29,6 +29,36 @@ BFSearch::~BFSearch()
 
 void BFSearch::open(AiNode &node)
 {
+	int index = mSetOfOpenNodes.indexOf(node);
+	if (index > -1) {	// The node is already open
+		if (node < mSetOfOpenNodes[index]) {
+			mSetOfOpenNodes[index].totalCost = node.totalCost;	// Save the least-cost node replacing the higher-cost node.
+			mSetOfOpenNodes[index].previous = node.previous;
+		}
+		return;			// since the node is already open
+	}
+	mSetOfOpenNodes.append(node);
+	mProblem->setCurrentState(node.state);
+	QVector<AiState> successors;
+	mProblem->getSuccessors(successors);
+
+	if (successors.isEmpty())
+		return;	// to open next node in priority queue
+
+	foreach(const AiState &successor, successors) {
+		int cost = getCostOfGoingTo(successor);
+		// Set new node corresponding to a successor state
+		AiNode newNode = {
+			cost,
+			node.totalCost + cost,
+			node.step + 1,
+			successor,
+			&(mSetOfOpenNodes.last()),
+			nullptr
+		};
+		// Insert the new node at the end of the queue so that it can be opened later.
+		mPriorityQueue.insert(mPriorityQueue.constEnd(), newNode, newNode.totalCost);
+	}
 }
 
 AiNode BFSearch::run()

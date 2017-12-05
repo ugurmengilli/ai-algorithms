@@ -65,6 +65,14 @@ void BFSearch::open(AiNode &node)
 
 AiNode BFSearch::run()
 {
+	while (mPriorityQueue.count()) {	// Loop until there is no node to be opened
+		AiNode node = mPriorityQueue.take(mPriorityQueue.firstKey());
+
+		if (foundGoalAt(node))
+			return node;
+		// Otherwise:
+		open(node);
+	}
 	return AiNode();
 }
 

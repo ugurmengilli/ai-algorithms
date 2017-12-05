@@ -30,7 +30,9 @@ BFSearch::~BFSearch()
 void BFSearch::open(AiNode &node)
 {
 	int index = mSetOfOpenNodes.indexOf(node);
-	if (index > -1) {	// The node is already open
+	if (index > -1 && mSearchType == UniformCost)
+		return;
+	else if (index > -1 && mSearchType == LeastCost) {	// The node is already open
 		if (node < mSetOfOpenNodes[index]) {
 			mSetOfOpenNodes[index].totalCost = node.totalCost;	// Save the least-cost node replacing the higher-cost node.
 			mSetOfOpenNodes[index].previous = node.previous;

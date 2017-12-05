@@ -19,15 +19,15 @@ struct AiNode
 	AiNode* previous;		// Back-pointer
 	AiNode* next;			// Next step in optimum solution path. Use this to track the path from start to goal.
 
-	bool operator== (const AiNode &node) {
+	bool operator== (const AiNode &node) const {
 		return this->state == node.state;
 	}
 
-	bool operator== (const AiState &state) {
+	bool operator== (const AiState &state) const {
 		return this->state == state;
 	}
 
-	bool operator< (const AiNode &state) {
+	bool operator< (const AiNode &state) const {
 		return this->totalCost < state.totalCost;
 	}
 };
@@ -51,7 +51,7 @@ protected slots:
 
 protected:
 	QVector<AiNode> mSetOfOpenNodes;
-	QMap<AiNode, int> mPriorityQueue;
+	QMap<int, AiNode> mPriorityQueue;
 	AiProblem *mProblem;
 };
 

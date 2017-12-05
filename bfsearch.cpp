@@ -14,7 +14,7 @@ BFSearch::BFSearch(AiProblem *problem, QObject *parent)
 		nullptr		// Next node in solution path
 	};
 	// Add the starting node to the priority queue to open when running the algorithm.
-	mPriorityQueue.insert(startNode, startNode.totalCost);
+	mPriorityQueue.insert(startNode.totalCost, startNode);
 }
 
 BFSearch::BFSearch(AiProblem *problem, BFSearch::BFStype type, QObject *parent)
@@ -57,12 +57,13 @@ void BFSearch::open(AiNode &node)
 			nullptr
 		};
 		// Insert the new node at the end of the queue so that it can be opened later.
-		mPriorityQueue.insert(mPriorityQueue.constEnd(), newNode, newNode.totalCost);
+		mPriorityQueue.insertMulti(newNode.totalCost, newNode);
 	}
 }
 
 AiNode BFSearch::run()
 {
+	return AiNode();
 }
 
 int BFSearch::getCostOfGoingTo(const AiState &node) const

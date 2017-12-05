@@ -14,13 +14,13 @@ class AiProblem : public QObject
 	Q_OBJECT
 
 public:
-	AiProblem(QObject *parent = 0);
+	AiProblem(QObject *parent = 0) : QObject(parent) { };
 	virtual ~AiProblem() { }
 
 public slots:
 	virtual const AiState& getCurrentState() const = 0;
 	virtual void getSuccessors(QVector<AiState>& successors) const = 0;
-	virtual bool setCurrentState(AiState) = 0;
+	virtual bool setCurrentState(AiState&) = 0;
 
 protected:
 	AiState mCurrentState;
